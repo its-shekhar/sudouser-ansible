@@ -1,0 +1,9 @@
+---
+ - hosts: sd
+   become: true
+   tasks:
+    - name: learning sudousers in asnsible
+      user: 
+       name: sssd
+       state: present
+ 

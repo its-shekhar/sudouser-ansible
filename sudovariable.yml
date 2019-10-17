@@ -1,0 +1,25 @@
+---
+ - hosts: sd
+   become: true
+   tasks:
+    - name: Installation of {{ package }}
+      yum: 
+       name:  "{{ package }}" 
+       state: present
+    - name: Restarting {{ package }} service
+      service:
+       name: "{{ package }}"
+       state: restarted
+    - name: Restarting {{ package1 }} service
+      service:
+       name: firewalld
+       state: restarted
+    - name: Creating index.html file for {{ package }}
+      copy:
+       content: "Welcome to Automation life"
+       dest: /var/www/html/index.html
+    - name: Allow {{ package  }} in firewall
+      firewalld: 
+       service: http
+       state: enabled
+       permanent: true
